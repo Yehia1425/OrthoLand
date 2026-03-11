@@ -1,0 +1,19 @@
+.offer-card{
+border-radius: 15px;
+transition: all .3s ease;
+}
+
+.offer-card:hover{
+transform: translateY(-8px);
+box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+}
+
+.offer-img{
+height: 200px;
+object-fit: cover;
+transition: transform .4s;
+}
+
+.offer-card:hover .offer-img{
+transform: scale(1.05);
+}

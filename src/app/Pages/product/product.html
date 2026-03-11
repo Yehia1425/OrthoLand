@@ -1,40 +1,97 @@
-<div class="max-w-7xl mx-auto   px-6 py-16 grid md:grid-cols-2 lg:grid-cols-3 gap-8 mt-20 ">
+<section class="py-20 bg-cyan-100 mt-20">
 
-  <!-- مثال على منتج واحد -->
-  <div class="bg-white p-6 rounded-2xl shadow-md cursor-pointer hover:shadow-xl transition mb-6"
-       (click)="goToDetails()">
-    <div class="text-6xl text-center mb-4">🪥</div>
-    <h3 class="text-xl font-semibold">فرشاة تقويم ناعمة</h3>
-    <p class="text-cyan-600 font-bold text-lg">45 جنيه</p>
-    <p class="text-sm text-gray-500">متوفر</p>
-  </div>
-  <div class="bg-white p-6 rounded-2xl shadow-md cursor-pointer hover:shadow-xl transition mb-6"
-       (click)="goToDetails()">
-    <div class="text-6xl text-center mb-4">🪥</div>
-    <h3 class="text-xl font-semibold">فرشاة تقويم ناعمة</h3>
-    <p class="text-cyan-600 font-bold text-lg">45 جنيه</p>
-    <p class="text-sm text-gray-500">متوفر</p>
-  </div>
-  <div class="bg-white p-6 rounded-2xl shadow-md cursor-pointer hover:shadow-xl transition mb-6"
-       (click)="goToDetails()">
-    <div class="text-6xl text-center mb-4">🪥</div>
-    <h3 class="text-xl font-semibold">فرشاة تقويم ناعمة</h3>
-    <p class="text-cyan-600 font-bold text-lg">45 جنيه</p>
-    <p class="text-sm text-gray-500">متوفر</p>
-  </div>
-  <div class="bg-white p-6 rounded-2xl shadow-md cursor-pointer hover:shadow-xl transition mb-6"
-       (click)="goToDetails()">
-    <div class="text-6xl text-center mb-4">🪥</div>
-    <h3 class="text-xl font-semibold">فرشاة تقويم ناعمة</h3>
-    <p class="text-cyan-600 font-bold text-lg">45 جنيه</p>
-    <p class="text-sm text-gray-500">متوفر</p>
-  </div>
-  <div class="bg-white p-6 rounded-2xl shadow-md cursor-pointer hover:shadow-xl transition mb-6"
-       (click)="goToDetails()">
-    <div class="text-6xl text-center mb-4">🪥</div>
-    <h3 class="text-xl font-semibold">فرشاة تقويم ناعمة</h3>
-    <p class="text-cyan-600 font-bold text-lg">45 جنيه</p>
-    <p class="text-sm text-gray-500">متوفر</p>
-  </div>
+<div class="max-w-7xl mx-auto px-4 mt-2">
+
+<input
+type="text"
+placeholder="Search products..."
+[formControl]="searchControl"
+class="w-full p-3 border rounded-lg mb-8"
+/>
 
 </div>
+
+<!-- VIDEO -->
+
+@if(videoUrl()){
+
+<section class="py-10 bg-white mb-10">
+
+<div class="text-center mb-12">
+
+
+</div>
+
+<div class="max-w-5xl mx-auto rounded-2xl overflow-hidden border-4 border-cyan-500 shadow-2xl aspect-video">
+
+<video controls muted loop class="w-full h-full object-cover">
+
+<source
+[src]="getVideoUrl(videoUrl())"
+type="video/mp4"
+/>
+
+</video>
+
+</div>
+
+</section>
+
+}
+
+<!-- PRODUCTS -->
+
+<div class="max-w-7xl mx-auto grid gap-8 px-6 md:grid-cols-2 lg:grid-cols-3">
+
+@for (pro of filteredProducts(); track pro.id) {
+
+<div class="bg-white p-8 rounded-2xl shadow-md hover:-translate-y-2 hover:shadow-xl transition cursor-pointer">
+
+@if (pro.picturesUrls?.length) {
+
+<img
+[src]="getImageUrl(pro.picturesUrls[0])"
+class="w-full h-52 object-cover rounded-xl mb-4"
+/>
+
+}
+
+<h3 class="text-xl font-semibold mb-2 text-center">
+{{ pro.name }}
+</h3>
+
+<p class="text-gray-500 mb-3 text-center">
+{{ pro.description }}
+</p>
+
+<p class="text-cyan-600 font-bold text-lg mb-4 text-center">
+{{ pro.price }} EGP
+</p>
+
+<div class="flex justify-between">
+
+<button
+[routerLink]="['/product-details', pro.id]"
+class="bg-gray-200 px-4 py-2 rounded hover:bg-gray-300 transition">
+
+View
+
+</button>
+
+<button
+(click)="addToCart(pro)"
+class="bg-[#2D465E] text-white px-4 py-2 rounded hover:bg-[#1f3346] transition">
+
+Add To Cart
+
+</button>
+
+</div>
+
+</div>
+
+}
+
+</div>
+
+</section>

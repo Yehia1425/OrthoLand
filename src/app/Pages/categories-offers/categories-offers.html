@@ -4,11 +4,8 @@
 
 @for (pro of categories(); track pro.id) {
 
-<div
-class="bg-white p-10 rounded-2xl text-center shadow-md hover:-translate-y-2 hover:shadow-xl transition cursor-pointer"
-[routerLink]="['/products', pro.id]"
-[queryParams]="{video: pro.videoUrl}"
->
+<div class="bg-white p-10 rounded-2xl text-center shadow-md hover:-translate-y-2 hover:shadow-xl transition cursor-pointer"
+     [routerLink]="['/offers', pro.id]">
 
 <h3 class="text-xl font-semibold mb-2">
 {{ pro.name }}

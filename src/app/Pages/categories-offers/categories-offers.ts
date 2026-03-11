@@ -1,17 +1,16 @@
-import { Component, inject, OnInit, signal, WritableSignal } from '@angular/core';
-import { RouterLink } from "@angular/router";
-import { ProductServicesandCategories } from '../../Core/services/ProductServicesandCategories/product-servicesand-categories';
+import { Component, inject, signal, WritableSignal } from '@angular/core';
 import { ICategories } from '../../Shared/interfaces/icategories';
+import { ProductServicesandCategories } from '../../Core/services/ProductServicesandCategories/product-servicesand-categories';
+import { RouterLink } from '@angular/router';
 
 @Component({
-  selector: 'app-categories',
+  selector: 'app-categories-offers',
   imports: [RouterLink],
-  templateUrl: './categories.html',
-  styleUrl: './categories.css',
+  templateUrl: './categories-offers.html',
+  styleUrl: './categories-offers.css',
 })
-export class Categories implements OnInit {
-
-  private readonly ProductServices=inject(ProductServicesandCategories);
+export class CategoriesOffers {
+ private readonly ProductServices=inject(ProductServicesandCategories);
 
   categories:WritableSignal<ICategories[]>=signal([]);
 
@@ -49,5 +48,4 @@ GetProductByCategoriesForAllProduct(id:number):void
     }
   })
 }
-
 }

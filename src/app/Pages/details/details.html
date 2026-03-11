@@ -1,58 +1,97 @@
 <div class="max-w-6xl mx-auto px-6 py-20 mt-16">
 
-  <div class="grid md:grid-cols-2 gap-12 bg-white rounded-3xl shadow-xl p-10">
+@if(product()) {
 
-    <!-- صورة المنتج -->
-    <div class="flex justify-center">
-      <div class="w-72 h-72 bg-cyan-100 rounded-3xl flex items-center justify-center text-7xl">
-        🪥
-      </div>
-    </div>
+<div class="grid md:grid-cols-2 gap-12 bg-white rounded-3xl shadow-xl p-10">
 
-    <!-- معلومات المنتج -->
-    <div class="space-y-6">
+<!-- صورة المنتج -->
+<div class="flex justify-center">
 
-      <h1 class="text-3xl font-bold">فرشاة تقويم ناعمة</h1>
+<img
+class="w-72 h-72 object-cover rounded-3xl"
+[src]="getImageUrl(product()?.picturesUrls?.[0])"
+alt="product"
+/>
 
-      <!-- Stars ثابتة -->
-      <div class="flex items-center gap-2 text-yellow-400">
-        <i class="fas fa-star"></i>
-        <i class="fas fa-star"></i>
-        <i class="fas fa-star"></i>
-        <i class="fas fa-star"></i>
-        <i class="fas fa-star-half-alt"></i>
-        <span class="text-gray-600 text-sm">(4.7 / 5) - 89 تقييم</span>
-      </div>
-
-      <!-- السعر -->
-      <div class="text-3xl font-extrabold text-cyan-600">
-        45 جنيه
-      </div>
-
-      <!-- Stock -->
-      <div class="px-4 py-2 rounded-xl w-fit bg-gray-100">
-        متوفر: 25 قطعة
-      </div>
-
-      <!-- الوصف -->
-      <p class="text-gray-600 leading-relaxed">
-        فرشاة متخصصة للعناية بالتقويم بشعيرات ناعمة تنظف بعمق دون إيذاء اللثة.
-      </p>
-
-      <!-- اختيار الكمية -->
-      <div class="flex items-center gap-4">
-        <button (click)="decrease()" class="px-4 py-2 bg-gray-200 rounded-lg">−</button>
-        <span class="font-semibold text-lg">{{ quantity }}</span>
-        <button (click)="increase()" class="px-4 py-2 bg-gray-200 rounded-lg">+</button>
-      </div>
-
-      <!-- Add to Cart -->
-      <button (click)="addToCart()"
-              class="bg-cyan-500 hover:bg-cyan-600 text-white px-10 py-3 rounded-xl font-semibold">
-        إضافة إلى السلة
-      </button>
-
-    </div>
-  </div>
 </div>
 
+<!-- معلومات المنتج -->
+<div class="space-y-6">
+
+<h1 class="text-3xl font-bold">
+{{ product()?.name }}
+</h1>
+
+<div class="flex items-center gap-2 text-yellow-500">
+⭐ {{ product()?.rate }} / 5
+</div>
+
+<div class="text-3xl font-extrabold text-cyan-600">
+{{ product()?.price }} جنيه
+</div>
+
+<div class="px-4 py-2 rounded-xl w-fit bg-gray-100">
+متوفر: {{ product()?.stock }} قطعة
+</div>
+
+<p class="text-gray-600 leading-relaxed">
+{{ product()?.description }}
+</p>
+
+<!-- الكمية -->
+<div class="flex items-center gap-4">
+
+<button
+(click)="decrease()"
+class="px-4 py-2 bg-gray-200 rounded-lg">
+−
+</button>
+
+<span class="font-semibold text-lg">
+{{ quantity() }}
+</span>
+
+<button
+(click)="increase()"
+class="px-4 py-2 bg-gray-200 rounded-lg">
++
+</button>
+
+</div>
+
+<button
+(click)="addToCart(product()!)"
+class="bg-cyan-500 hover:bg-cyan-600 text-white px-10 py-3 rounded-xl font-semibold">
+إضافة إلى السلة
+</button>
+
+</div>
+
+</div>
+
+} @else {
+
+<!-- Skeleton Loading -->
+
+<div class="grid md:grid-cols-2 gap-12 bg-white rounded-3xl shadow-xl p-10 animate-pulse">
+
+<div class="flex justify-center">
+<div class="w-72 h-72 bg-gray-200 rounded-3xl"></div>
+</div>
+
+<div class="space-y-6">
+
+<div class="h-8 bg-gray-200 rounded w-2/3"></div>
+<div class="h-4 bg-gray-200 rounded w-1/3"></div>
+<div class="h-8 bg-gray-200 rounded w-1/4"></div>
+<div class="h-6 bg-gray-200 rounded w-1/3"></div>
+<div class="h-20 bg-gray-200 rounded"></div>
+<div class="h-10 bg-gray-200 rounded w-40"></div>
+
+</div>
+
+</div>
+
+}
+
+</div>

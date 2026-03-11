@@ -1,5 +1,6 @@
-import { Component, HostListener } from '@angular/core';
+import { Component, computed, HostListener, inject, OnInit, Signal } from '@angular/core';
 import { RouterLink } from "@angular/router";
+import { CartServices } from '../../Core/services/CartServcies/cart-services';
 
 @Component({
   selector: 'app-navbar',
@@ -7,15 +8,11 @@ import { RouterLink } from "@angular/router";
   templateUrl: './navbar.html',
   styleUrl: './navbar.css',
 })
-export class Navbar {
+export class Navbar  {
 
 
-  cartCount = 0;
 
-  constructor() {
-    // مؤقتًا
-    this.cartCount = 3;
-  }
+
 
  isScrolling: boolean = false;
 

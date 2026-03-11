@@ -7,14 +7,13 @@ import { Navbar } from "./Layouts/navbar/navbar";
 import { Footer } from "./Layouts/footer/footer";
 import { Product } from "./Pages/product/product";
 import { Details } from "./Pages/details/details";
-import { Checkout } from "./Pages/checkout/checkout";
 import { Cart } from './Pages/cart/cart';
 import { Categories } from "./Pages/categories/categories";
 import { Offers } from "./Pages/offers/offers";
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, Home, Navbar, Footer, Product, Details, Checkout, Cart, Categories, Offers],
+  imports: [RouterOutlet, Home, Navbar, Footer, Product, Details, Cart, Categories, Offers],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })

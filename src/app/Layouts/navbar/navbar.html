@@ -1,7 +1,7 @@
 <!-- Navbar -->
 <header class="fixed top-0 inset-x-0 z-50 bg-gradient-to-r from-cyan-500 to-cyan-400 shadow-lg transition-all duration-300" [class.p-4]="!isScrolling">
   <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
-    <img src="/Images/Logo.png" class="h-14" alt="Logo" />
+    <!-- <img src="/Images/Logo.png" class="h-14" alt="Logo" /> -->
 
 <nav class="hidden md:flex items-center gap-8 text-white font-medium">
 
@@ -9,13 +9,10 @@
     الرئيسية
   </a>
 
-  <a routerLink="/products" class="hover:text-cyan-100">
-    المنتجات
-  </a>
   <a routerLink="/categories" class="hover:text-cyan-100">
     الاقسام
   </a>
-  <a routerLink="/offers" class="hover:text-cyan-100">
+  <a routerLink="/categories-offers" class="hover:text-cyan-100">
     العروض
   </a>
 
@@ -29,7 +26,6 @@
     <i class="fas fa-shopping-cart"></i>
 
     <span class="cart-count">
-      {{ cartCount }}
     </span>
 
   </a>

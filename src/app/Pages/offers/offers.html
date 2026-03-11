@@ -1,40 +1,55 @@
-<div class="max-w-7xl mx-auto   px-6 py-16 grid md:grid-cols-2 lg:grid-cols-3 gap-8 mt-20 ">
+<section class="py-20 bg-cyan-100 mt-20">
 
-  <!-- مثال على منتج واحد -->
-  <div class="bg-white p-6 rounded-2xl shadow-md cursor-pointer hover:shadow-xl transition mb-6"
-       (click)="goToDetails()">
-    <div class="text-6xl text-center mb-4">🪥</div>
-    <h3 class="text-xl font-semibold">فرشاة تقويم ناعمة</h3>
-    <p class="text-cyan-600 font-bold text-lg">45 جنيه</p>
-    <p class="text-sm text-gray-500">متوفر</p>
-  </div>
-  <div class="bg-white p-6 rounded-2xl shadow-md cursor-pointer hover:shadow-xl transition mb-6"
-       (click)="goToDetails()">
-    <div class="text-6xl text-center mb-4">🪥</div>
-    <h3 class="text-xl font-semibold">فرشاة تقويم ناعمة</h3>
-    <p class="text-cyan-600 font-bold text-lg">45 جنيه</p>
-    <p class="text-sm text-gray-500">متوفر</p>
-  </div>
-  <div class="bg-white p-6 rounded-2xl shadow-md cursor-pointer hover:shadow-xl transition mb-6"
-       (click)="goToDetails()">
-    <div class="text-6xl text-center mb-4">🪥</div>
-    <h3 class="text-xl font-semibold">فرشاة تقويم ناعمة</h3>
-    <p class="text-cyan-600 font-bold text-lg">45 جنيه</p>
-    <p class="text-sm text-gray-500">متوفر</p>
-  </div>
-  <div class="bg-white p-6 rounded-2xl shadow-md cursor-pointer hover:shadow-xl transition mb-6"
-       (click)="goToDetails()">
-    <div class="text-6xl text-center mb-4">🪥</div>
-    <h3 class="text-xl font-semibold">فرشاة تقويم ناعمة</h3>
-    <p class="text-cyan-600 font-bold text-lg">45 جنيه</p>
-    <p class="text-sm text-gray-500">متوفر</p>
-  </div>
-  <div class="bg-white p-6 rounded-2xl shadow-md cursor-pointer hover:shadow-xl transition mb-6"
-       (click)="goToDetails()">
-    <div class="text-6xl text-center mb-4">🪥</div>
-    <h3 class="text-xl font-semibold">فرشاة تقويم ناعمة</h3>
-    <p class="text-cyan-600 font-bold text-lg">45 جنيه</p>
-    <p class="text-sm text-gray-500">متوفر</p>
-  </div>
+<div class="max-w-7xl mx-auto grid gap-8 px-6 md:grid-cols-2 lg:grid-cols-3">
+
+@for (offer of offers(); track offer.id) {
+
+<div
+class="bg-white p-6 rounded-2xl shadow-md hover:-translate-y-2 hover:shadow-xl transition cursor-pointer"
+[routerLink]="['/offer-details', offer.id]"
+>
+
+<!-- عنوان العرض -->
+<h3 class="text-xl font-bold text-center mb-3 text-red-500">
+
+🔥 Buy {{ offer.buyQuantity }} Get {{ offer.getQuantity }} Free
+
+</h3>
+
+<!-- تفاصيل العرض -->
+<div class="text-center text-gray-600 mb-4">
+
+<p>
+مدة العرض: {{ offer.durationDays }} أيام
+</p>
+
+<p>
+من {{ offer.startDate }}
+</p>
+
+<p>
+إلى {{ offer.endDate }}
+</p>
 
 </div>
+
+<!-- بيانات إضافية -->
+<div class="flex justify-between text-sm text-gray-500">
+
+<span>
+🆔 {{ offer.id }}
+</span>
+
+<span>
+📦 Product: {{ offer.productId }}
+</span>
+
+</div>
+
+</div>
+
+}
+
+</div>
+
+</section>

@@ -1,83 +1,121 @@
-<section class="container max-w-full min-h-screen mt-14 bg-[#F6F6F6] px-6 md:px-20 py-20">
-  <!-- Header -->
-  <div class="flex flex-col md:flex-row justify-between items-center mb-10 gap-5">
-    <h2 class="text-[#2d2d2d] text-4xl font-semibold">🛒 Shop Cart</h2>
+<section class="container max-w-full min-h-screen px-28 py-40 bg-[#F6F6F6]">
 
-    <button
+<div class="flex justify-between mb-6 items-center px-24">
 
-      class="flex items-center gap-2 bg-[#2D465E] hover:bg-[#2b7ac4] text-white px-6 py-3 rounded-lg text-sm transition-all duration-300"
-    >
-      <i class="pi pi-trash"></i> Clear Cart
-    </button>
-  </div>
+<h2 class="text-text-color text-[40px] flex items-center">
+Shop Cart
+</h2>
 
-  <!-- Cart Body -->
-  <div class="bg-white shadow-md rounded-xl p-6">
-    <div class="text-2xl md:text-3xl font-semibold text-[#333] mb-6">
-      Total Cart Price :
-      <span class="text-[#2D465E]"> EGP</span>
-    </div>
+<button
+(click)="clearCart()"
+class="py-3 h-fit px-5 bg-[#2D465E] text-white duration-300 transition-colors rounded-md text-sm flex items-center">
 
-    <!-- Cart Items -->
- 
-    <div
-      class="grid md:grid-cols-[1fr_250px] gap-6 border-b border-gray-200 py-5 last:border-none"
-    >
-      <!-- Product Info -->
-      <div class="flex flex-col sm:flex-row gap-5">
-        <div class="w-full sm:w-32 flex-shrink-0">
-          <img
-            src="/Images/home-slider.jpg"
-            alt="prod.productName"
-            class="w-full h-32 object-contain rounded-md"
-          />
-        </div>
+Clear Cart
+<i class="pi pi-trash ml-2"></i>
 
-        <div class="flex flex-col justify-between">
-          <div>
-            <h4 class="text-lg font-semibold text-[#2d2d2d]">
-             productName 
-            </h4>
-          </div>
+</button>
 
-          <button
-       
-            class="text-[#2D465E] hover:text-[#2b7ac4] text-sm mt-2 flex items-center gap-1 transition-all"
-          >
-            <i class="fas fa-trash-can"></i> Remove
-          </button>
-        </div>
-      </div>
+</div>
 
-      <!-- Quantity Controls -->
-      <div class="flex items-center justify-end gap-4">
-        <button
-          
-          class="text-2xl text-[#2D465E] hover:text-[#2b7ac4] transition"
-        >
-          <i class="fa-regular fa-square-plus"></i>
-        </button>
+<div class="shadow-lg px-5 py-5 bg-white rounded-lg">
 
-        <span class="text-lg font-medium">quantity </span>
+<div class="text-[30px] font-semibold mb-6">
+Total Cart Price : {{ getTotalPrice() }} EGP
+</div>
 
-        <button
-          
-          class="text-2xl text-[#2D465E] hover:text-[#2b7ac4] transition"
-        >
-          <i class="fa-regular fa-square-minus"></i>
-        </button>
-      </div>
-    </div>
-    
+@for (item of cartItems(); track item.id) {
 
-    <!-- Checkout Button -->
-    <div class="flex justify-end mt-10">
-      <button routerLink="/checkout"
-       
-        class="bg-[#2D465E] hover:bg-[#2b7ac4] px-8 py-3 text-white rounded-lg text-lg transition-all"
-      >
-        Proceed to Payment
-      </button>
-    </div>
-  </div>
+<div class="grid lg:grid-cols-[1fr_350px] gap-5 relative mb-6 border-b pb-5">
+
+<div class="flex flex-col rounded-[10px] bg-white h-fit">
+
+<div class="flex items-center gap-5 py-3 px-4">
+
+<!-- Product Image -->
+
+<div class="sm:w-40 max-w-32">
+
+<img
+[src]="getImageUrl(item.pictureUrl)"
+class="w-full h-[100px] object-contain"
+[alt]="item.name"
+>
+
+</div>
+
+<!-- Product Info -->
+
+<div class="flex justify-between items-center flex-col sm:flex-row gap-4 w-full">
+
+<div class="flex flex-col gap-2">
+
+<span class="text-gray-500 text-sm">
+{{item.name}}
+</span>
+
+<h4 class="text-lg font-medium">
+{{item.name}}
+</h4>
+
+<button
+(click)="removeItem(item.id)"
+class="text-[#2D465E] text-sm">
+
+<i class="fas fa-trash-can mr-1"></i>
+Remove
+
+</button>
+
+</div>
+
+<!-- Quantity -->
+
+<div class="flex items-center gap-3">
+
+<button
+(click)="increaseQuantity(item)"
+class="text-3xl text-black">
+
+<i class="fa-regular fa-square-plus"></i>
+
+</button>
+
+<span class="text-lg font-medium">
+{{item.quantity}}
+</span>
+
+<button
+(click)="decreasequantity(item)"
+class="text-3xl text-black">
+
+<i class="fa-regular fa-square-minus"></i>
+
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+}
+
+<div class="flex justify-end mt-6">
+
+<button
+routerLink="/checkout"
+class="bg-[#2D465E] px-6 py-3 text-center text-white rounded-lg">
+
+CheckOut
+
+</button>
+
+</div>
+
+</div>
+
 </section>
