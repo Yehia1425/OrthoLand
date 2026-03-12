@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { ProductServicesandCategories } from '../../Core/services/ProductServicesandCategories/product-servicesand-categories';
 import { IProductSpec } from '../../Shared/interfaces/iproduct-spec';
 import { CartServices } from '../../Core/services/CartServcies/cart-services';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-details',
@@ -14,31 +15,55 @@ export class Details implements OnInit {
   private route = inject(ActivatedRoute);
   private productService = inject(ProductServicesandCategories);
   private cart = inject(CartServices);
+  private toastr = inject(ToastrService);
 
   BaseUrl = "https://ourtholand.runasp.net";
 
   product = signal<IProductSpec | null>(null);
   quantity = signal(1);
 
-getImageUrl(img: string | undefined){
-  if(!img) return '';
-  const cleanName = img.replace(/\s+/g,'_');
-  return `${this.BaseUrl}/api/Attachment/get-image/${cleanName}`;
-}
+  selectedImage = signal<string | null>(null);
+
+  getImageUrl(img: string | undefined | null){
+    if(!img) return '';
+    const cleanName = img.replace(/\s+/g,'_');
+    return `${this.BaseUrl}/api/Attachment/get-image/${cleanName}`;
+  }
 
   ngOnInit(): void {
 
     const id = this.route.snapshot.paramMap.get('id');
 
     if (id) {
+
       this.productService.GetProductById(Number(id)).subscribe({
+
         next: (res: IProductSpec) => {
+
           this.product.set(res);
+
+          if(res.picturesUrls?.length){
+            this.selectedImage.set(res.picturesUrls[0]);
+          }
+
         },
-        error: (err) => console.error(err)
+
+        error: (err) => {
+
+          console.error(err);
+
+          this.toastr.error("Failed to load product");
+
+        }
+
       });
+
     }
 
+  }
+
+  changeImage(img:string){
+    this.selectedImage.set(img);
   }
 
   increase(): void {
@@ -61,14 +86,14 @@ getImageUrl(img: string | undefined){
 
     }else{
 
-items.push({
-  id: product.id,
-  name: product.name,
-  description: product.description,
-  price: product.price,
-  quantity: 1,
-  pictureUrl: product.picturesUrls[0]
-});
+      items.push({
+        id: product.id,
+        name: product.name,
+        description: product.description,
+        price: product.price,
+        quantity: this.quantity(),
+        pictureUrl: product.picturesUrls[0]
+      });
 
     }
 
@@ -82,11 +107,19 @@ items.push({
     this.cart.createOrUpdateBasket(basket).subscribe({
 
       next:(res)=>{
+
         console.log("Added To Cart",res);
+
+        this.toastr.success("Product added to cart 🛒");
+
       },
 
       error:(err)=>{
+
         console.log(err);
+
+        this.toastr.error("Failed to add product");
+
       }
 
     });

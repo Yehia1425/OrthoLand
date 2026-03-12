@@ -1,48 +1,115 @@
 <section class="py-20 bg-cyan-100 mt-20">
 
-<div class="max-w-7xl mx-auto grid gap-8 px-6 md:grid-cols-2 lg:grid-cols-3">
+<!-- SEARCH -->
 
-@for (offer of offers(); track offer.id) {
+<div class="max-w-7xl mx-auto px-4 mt-2">
 
-<div
-class="bg-white p-6 rounded-2xl shadow-md hover:-translate-y-2 hover:shadow-xl transition cursor-pointer"
-[routerLink]="['/offer-details', offer.id]"
->
-
-<!-- عنوان العرض -->
-<h3 class="text-xl font-bold text-center mb-3 text-red-500">
-
-🔥 Buy {{ offer.buyQuantity }} Get {{ offer.getQuantity }} Free
-
-</h3>
-
-<!-- تفاصيل العرض -->
-<div class="text-center text-gray-600 mb-4">
-
-<p>
-مدة العرض: {{ offer.durationDays }} أيام
-</p>
-
-<p>
-من {{ offer.startDate }}
-</p>
-
-<p>
-إلى {{ offer.endDate }}
-</p>
+<input
+type="text"
+placeholder="Search offers..."
+[formControl]="searchControl"
+class="w-full p-3 border rounded-lg mb-8"
+/>
 
 </div>
 
-<!-- بيانات إضافية -->
-<div class="flex justify-between text-sm text-gray-500">
+<!-- PRODUCTS -->
 
-<span>
-🆔 {{ offer.id }}
+<div class="max-w-7xl mx-auto grid gap-6 px-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+
+@for (pro of filteredProducts(); track pro.id) {
+
+<div
+class="bg-white rounded-xl shadow-sm hover:shadow-xl hover:-translate-y-1 transition duration-300 flex flex-col relative"
+>
+
+<!-- OFFER BADGE -->
+
+@if(pro.offer){
+
+<div class="absolute top-3 left-3 bg-red-500 text-white text-xs px-3 py-1 rounded-full shadow z-10">
+
+🔥 Buy {{ pro.offer.buyQuantity }} Get {{ pro.offer.getQuantity }}
+
+</div>
+
+}
+
+<!-- IMAGE -->
+
+<div class="h-48 bg-gray-100 rounded-t-xl overflow-hidden flex items-center justify-center">
+
+@if (pro.picturesUrls && pro.picturesUrls.length) {
+
+<img
+[src]="getImageUrl(pro.picturesUrls[0])"
+class="w-full h-full object-cover"
+alt="product image"
+/>
+
+}
+
+</div>
+
+<!-- CONTENT -->
+
+<div class="p-4 flex flex-col flex-grow">
+
+<p class="text-gray-400 text-sm truncate mb-1">
+Category: {{ pro.categoryId }}
+</p>
+
+<h3 class="font-semibold text-lg truncate">
+{{ pro.name }}
+</h3>
+
+<p class="text-sm text-gray-500">
+Stock: {{ pro.stock }}
+</p>
+
+<p class="text-sm text-gray-500 mb-2">
+Sold: {{ pro.soldNumber }}
+</p>
+
+<div class="flex items-center text-sm mb-3">
+
+<span class="text-yellow-500 mr-1">⭐</span>
+
+<span class="text-gray-700">
+{{ pro.rate }}
 </span>
 
-<span>
-📦 Product: {{ offer.productId }}
+</div>
+
+<!-- BOTTOM -->
+
+<div class="flex items-center justify-between mt-auto">
+
+<span class="font-bold text-cyan-600 text-lg">
+{{ pro.price }} EGP
 </span>
+
+<div class="flex gap-2">
+
+<button
+[routerLink]="['/product-details', pro.id]"
+class="bg-gray-200 px-3 py-1 rounded hover:bg-gray-300 transition text-sm">
+
+View
+
+</button>
+
+<button
+(click)="addToCart(pro)"
+class="bg-[#2D465E] text-white px-3 py-1 rounded hover:bg-[#1f3346] transition text-sm">
+
+Add
+
+</button>
+
+</div>
+
+</div>
 
 </div>
 

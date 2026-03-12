@@ -1,8 +1,8 @@
 <div class="max-w-3xl mx-auto p-6 mt-28">
 
-  <h2 class="text-2xl font-bold mb-6 text-gray-800">
-    Checkout
-  </h2>
+<h2 class="text-2xl font-bold mb-6 text-gray-800">
+Checkout
+</h2>
 
 <form 
 [formGroup]="checkoutForm" 
@@ -12,6 +12,7 @@ class="space-y-6 bg-white p-6 rounded-xl shadow-md"
 
 <!-- User Name -->
 <div>
+
 <label class="block mb-2 text-sm font-medium text-gray-900">
 Full Name
 </label>
@@ -20,12 +21,15 @@ Full Name
 type="text"
 formControlName="userName"
 placeholder="Enter your name"
-class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5"
 />
+
 </div>
+
 
 <!-- Phone -->
 <div>
+
 <label class="block mb-2 text-sm font-medium text-gray-900">
 Phone Number
 </label>
@@ -34,12 +38,15 @@ Phone Number
 type="text"
 formControlName="userNumber"
 placeholder="01000000000"
-class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5"
 />
+
 </div>
+
 
 <!-- Address -->
 <div>
+
 <label class="block mb-2 text-sm font-medium text-gray-900">
 Address
 </label>
@@ -48,12 +55,15 @@ Address
 type="text"
 formControlName="address"
 placeholder="Enter your address"
-class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5"
 />
+
 </div>
+
 
 <!-- Notes -->
 <div>
+
 <label class="block mb-2 text-sm font-medium text-gray-900">
 Order Notes
 </label>
@@ -62,16 +72,51 @@ Order Notes
 rows="4"
 formControlName="notes"
 placeholder="Write notes for delivery..."
-class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5"
 ></textarea>
+
 </div>
 
+
+<!-- Payment Method -->
+
+<div>
+
+<label class="block mb-2 text-sm font-medium text-gray-900">
+Payment Method
+</label>
+
+<select
+formControlName="paymentWay"
+class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5"
+>
+
+<option value="">
+Select Payment Method
+</option>
+
+<option value="1">
+Instalpay
+</option>
+
+<option value="2">
+Vodafone Cash
+</option>
+
+</select>
+
+</div>
+
+
 <!-- Submit -->
+
 <button
 type="submit"
-class="w-full text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-3 text-center"
+class="w-full text-white bg-blue-600 hover:bg-blue-700 font-medium rounded-lg text-sm px-5 py-3 text-center"
 >
+
 Create Order
+
 </button>
 
 </form>

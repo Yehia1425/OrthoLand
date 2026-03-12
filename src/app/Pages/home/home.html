@@ -35,7 +35,9 @@
   </div>
 </section>
 
-<section class="py-20 bg-cyan-100" routerLink="/categories-details">
+<section class="py-20 bg-cyan-100 mt-20">
+
+  <!-- Title -->
   <div class="text-center mb-14">
     <h2 class="text-3xl font-bold text-gray-800">مستلزمات التقويم</h2>
     <p class="text-gray-600 mt-2">منتجات أصلية وعالية الجودة</p>
@@ -43,61 +45,37 @@
 
   <div class="max-w-7xl mx-auto grid gap-8 px-6 md:grid-cols-2 lg:grid-cols-3">
 
-    <div class="bg-white p-10 rounded-2xl text-center shadow-md hover:-translate-y-2 hover:shadow-xl transition cursor-pointer"
-        >
-      <div class="w-20 h-20 mx-auto mb-6 rounded-full bg-gradient-to-r from-cyan-500 to-cyan-400 flex items-center justify-center text-white text-3xl">
-        <i class="fas fa-tooth"></i>
-      </div>
-      <h3 class="text-xl font-semibold mb-2">فرش التقويم</h3>
-      <p class="text-gray-500">فرش متخصصة للعناية بالتقويم</p>
-    </div>
+    @for (pro of categories(); track pro.id) {
 
-    <div class="bg-white p-10 rounded-2xl text-center shadow-md hover:-translate-y-2 hover:shadow-xl transition cursor-pointer"
-         >
-      <div class="w-20 h-20 mx-auto mb-6 rounded-full bg-gradient-to-r from-cyan-500 to-cyan-400 flex items-center justify-center text-white text-3xl">
-        <i class="fas fa-cube"></i>
-      </div>
-      <h3 class="text-xl font-semibold mb-2">شمع التقويم</h3>
-      <p class="text-gray-500">حماية من الجروح والالتهابات</p>
-    </div>
+      <div
+        class="bg-white p-10 rounded-2xl text-center shadow-md hover:-translate-y-2 hover:shadow-xl transition cursor-pointer"
+        [routerLink]="['/products', pro.id]"
+        [queryParams]="{ video: pro.videoUrl }"
+      >
 
-    <div class="bg-white p-10 rounded-2xl text-center shadow-md hover:-translate-y-2 hover:shadow-xl transition cursor-pointer"
-        >
-      <div class="w-20 h-20 mx-auto mb-6 rounded-full bg-gradient-to-r from-cyan-500 to-cyan-400 flex items-center justify-center text-white text-3xl">
-        <i class="fas fa-grip-lines"></i>
-      </div>
-      <h3 class="text-xl font-semibold mb-2">خيوط التنظيف</h3>
-      <p class="text-gray-500">تنظيف عميق بين الأسنان</p>
-    </div>
+        <!-- Category Image -->
+        <div class="flex justify-center mb-6">
+          <div class="w-24 h-24 rounded-full overflow-hidden border-4 border-cyan-200 shadow">
+            <img
+              [src]="getImageUrl(pro.logoUrl)"
+              [alt]="pro.name"
+              class="w-full h-full object-cover"
+            />
+          </div>
+        </div>
 
-    <div class="bg-white p-10 rounded-2xl text-center shadow-md hover:-translate-y-2 hover:shadow-xl transition cursor-pointer"
-        >
-      <div class="w-20 h-20 mx-auto mb-6 rounded-full bg-gradient-to-r from-cyan-500 to-cyan-400 flex items-center justify-center text-white text-3xl">
-        <i class="fas fa-flask"></i>
-      </div>
-      <h3 class="text-xl font-semibold mb-2">غسول الفم</h3>
-      <p class="text-gray-500">انتعاش وحماية طوال اليوم</p>
-    </div>
+        <!-- Category Name -->
+        <h3 class="text-xl font-semibold mb-2">
+          {{ pro.name }}
+        </h3>
 
-    <div class="bg-white p-10 rounded-2xl text-center shadow-md hover:-translate-y-2 hover:shadow-xl transition cursor-pointer"
-        >
-      <div class="w-20 h-20 mx-auto mb-6 rounded-full bg-gradient-to-r from-cyan-500 to-cyan-400 flex items-center justify-center text-white text-3xl">
-        <i class="fas fa-tools"></i>
-      </div>
-      <h3 class="text-xl font-semibold mb-2">أدوات التنظيف</h3>
-      <p class="text-gray-500">أدوات احترافية للعناية اليومية</p>
-    </div>
 
-    <div class="bg-white p-10 rounded-2xl text-center shadow-md hover:-translate-y-2 hover:shadow-xl transition cursor-pointer"
-         >
-      <div class="w-20 h-20 mx-auto mb-6 rounded-full bg-gradient-to-r from-cyan-500 to-cyan-400 flex items-center justify-center text-white text-3xl">
-        <i class="fas fa-star"></i>
       </div>
-      <h3 class="text-xl font-semibold mb-2">إكسسوارات</h3>
-      <p class="text-gray-500">ملحقات مفيدة للتقويم</p>
-    </div>
+
+    }
 
   </div>
+
 </section>
 <!-- Features -->
 <section class="py-20 bg-white">

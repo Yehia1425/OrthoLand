@@ -4,6 +4,7 @@ import { OrdersServices } from '../../Core/services/OrdersServices/orders-servic
 import { CartServices } from '../../Core/services/CartServcies/cart-services';
 import { IOrderItem } from '../../Shared/interfaces/iorder-item';
 import { IOrder } from '../../Shared/interfaces/iorder';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-checkout',
@@ -16,6 +17,7 @@ export class Checkout {
 
   private orderService = inject(OrdersServices);
   private cartService = inject(CartServices);
+  private toastr = inject(ToastrService);
 
   cartItems = this.cartService.cartItems;
 
@@ -33,7 +35,11 @@ export class Checkout {
       Validators.required
     ]),
 
-    notes: new FormControl('')
+    notes: new FormControl(''),
+
+    paymentWay: new FormControl('',[
+      Validators.required
+    ])
 
   });
 
@@ -41,31 +47,61 @@ export class Checkout {
 submitOrder(){
 
   if(this.checkoutForm.invalid){
+
+    this.toastr.warning("Please fill all required fields");
+
     return;
   }
 
   const cartItems = this.cartItems();
 
   if(cartItems.length === 0){
-    console.log("Cart Empty");
+
+    this.toastr.error("Your cart is empty");
+
     return;
   }
 
   const formValue = this.checkoutForm.value;
 
-  const totalPrice = cartItems.reduce(
-    (total,item)=> total + (item.price * item.quantity),0
-  );
+  let totalPrice = 0;
 
-  const items: IOrderItem[] = cartItems.map(item => ({
-    productId: item.id,
-    name: item.name,
-    price: item.price,
-    quantity: item.quantity,
-    description: item.description ?? '',
-    itemTotalPrice: item.price * item.quantity,
-    offerApplied: false
-  }));
+  const items: IOrderItem[] = cartItems.map(item => {
+
+    let itemTotalPrice = item.price * item.quantity;
+    let offerApplied = false;
+
+    if(item.buyQuantity && item.getQuantity){
+
+      offerApplied = true;
+
+      const group = item.buyQuantity + item.getQuantity;
+
+      const offerCount = Math.floor(item.quantity / group);
+
+      const paidQuantity =
+        (offerCount * item.buyQuantity) +
+        (item.quantity % group);
+
+      itemTotalPrice = paidQuantity * item.price;
+
+    }
+
+    totalPrice += itemTotalPrice;
+
+    return {
+
+      productId: item.id,
+      name: item.name,
+      price: item.price,
+      quantity: item.quantity,
+      description: item.description ?? '',
+      itemTotalPrice: itemTotalPrice,
+      offerApplied: offerApplied
+
+    };
+
+  });
 
   const order: IOrder = {
 
@@ -75,6 +111,7 @@ submitOrder(){
     totalPrice: totalPrice,
     address: formValue.address!,
     notes: formValue.notes ?? '',
+    paymentWay: Number(formValue.paymentWay),
     items: items
 
   };
@@ -82,12 +119,23 @@ submitOrder(){
   this.orderService.createOrder(order).subscribe({
 
     next:(res)=>{
+
       console.log("Order Created",res);
+
+      this.toastr.success("Order placed successfully 🎉");
+
       this.cartService.cartItems.set([]);
+
+      this.checkoutForm.reset();
+
     },
 
     error:(err)=>{
+
       console.log(err);
+
+      this.toastr.error("Failed to place order");
+
     }
 
   });

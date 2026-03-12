@@ -17,11 +17,6 @@ class="w-full p-3 border rounded-lg mb-8"
 
 <section class="py-10 bg-white mb-10">
 
-<div class="text-center mb-12">
-
-
-</div>
-
 <div class="max-w-5xl mx-auto rounded-2xl overflow-hidden border-4 border-cyan-500 shadow-2xl aspect-video">
 
 <video controls muted loop class="w-full h-full object-cover">
@@ -41,38 +36,68 @@ type="video/mp4"
 
 <!-- PRODUCTS -->
 
-<div class="max-w-7xl mx-auto grid gap-8 px-6 md:grid-cols-2 lg:grid-cols-3">
+<div class="max-w-7xl mx-auto grid gap-6 px-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
 
 @for (pro of filteredProducts(); track pro.id) {
 
-<div class="bg-white p-8 rounded-2xl shadow-md hover:-translate-y-2 hover:shadow-xl transition cursor-pointer">
+<div class="bg-white rounded-xl shadow-sm hover:shadow-xl hover:-translate-y-1 transition duration-300 flex flex-col">
 
-@if (pro.picturesUrls?.length) {
+<!-- Image -->
+<div class="h-48 bg-gray-100 rounded-t-xl overflow-hidden flex items-center justify-center">
+
+@if (pro.picturesUrls && pro.picturesUrls.length) {
 
 <img
 [src]="getImageUrl(pro.picturesUrls[0])"
-class="w-full h-52 object-cover rounded-xl mb-4"
+class="w-full h-full object-cover"
+alt="product image"
 />
 
 }
 
-<h3 class="text-xl font-semibold mb-2 text-center">
+</div>
+
+<!-- Content -->
+<div class="p-4 flex flex-col flex-grow">
+
+<p class="text-gray-400 text-sm truncate mb-1">
+Category: {{ pro.categoryId }}
+</p>
+
+<h3 class="font-semibold text-lg truncate">
 {{ pro.name }}
 </h3>
 
-<p class="text-gray-500 mb-3 text-center">
-{{ pro.description }}
+<p class="text-sm text-gray-500">
+Stock: {{ pro.stock }}
 </p>
 
-<p class="text-cyan-600 font-bold text-lg mb-4 text-center">
+<p class="text-sm text-gray-500 mb-2">
+Sold: {{ pro.soldNumber }}
+</p>
+
+<div class="flex items-center text-sm mb-3">
+
+<span class="text-yellow-500 mr-1">⭐</span>
+
+<span class="text-gray-700">
+{{ pro.rate }}
+</span>
+
+</div>
+
+<!-- Bottom -->
+<div class="flex items-center justify-between mt-auto">
+
+<span class="font-bold text-cyan-600 text-lg">
 {{ pro.price }} EGP
-</p>
+</span>
 
-<div class="flex justify-between">
+<div class="flex gap-2">
 
 <button
 [routerLink]="['/product-details', pro.id]"
-class="bg-gray-200 px-4 py-2 rounded hover:bg-gray-300 transition">
+class="bg-gray-200 px-3 py-1 rounded hover:bg-gray-300 transition text-sm">
 
 View
 
@@ -80,11 +105,15 @@ View
 
 <button
 (click)="addToCart(pro)"
-class="bg-[#2D465E] text-white px-4 py-2 rounded hover:bg-[#1f3346] transition">
+class="bg-[#2D465E] text-white px-3 py-1 rounded hover:bg-[#1f3346] transition text-sm">
 
-Add To Cart
+Add
 
 </button>
+
+</div>
+
+</div>
 
 </div>
 

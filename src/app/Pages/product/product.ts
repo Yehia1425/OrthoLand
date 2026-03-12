@@ -5,6 +5,7 @@ import { IProduct } from '../../Shared/interfaces/iproduct';
 import { CartServices } from '../../Core/services/CartServcies/cart-services';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { debounceTime } from 'rxjs';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-product',
@@ -18,6 +19,7 @@ export class Product implements OnInit {
   private productService = inject(ProductServicesandCategories);
   private cartService = inject(CartServices);
   private route = inject(ActivatedRoute);
+  private toastr = inject(ToastrService);
 
   BaseUrl = "https://ourtholand.runasp.net";
 
@@ -28,14 +30,12 @@ export class Product implements OnInit {
 
   searchControl = new FormControl('');
 
-  // image path
   getImageUrl(img: string) {
     if (!img) return '';
     const cleanName = img.replace(/\s+/g, '_');
     return `${this.BaseUrl}/api/Attachment/get-image/${cleanName}`;
   }
 
-  // video path
   getVideoUrl(video: string) {
     if (!video) return '';
     const cleanName = video.replace(/\s+/g, '_');
@@ -54,7 +54,6 @@ export class Product implements OnInit {
 
     });
 
-    // get video
     this.route.queryParamMap.subscribe(params => {
 
       const video = params.get('video');
@@ -65,7 +64,6 @@ export class Product implements OnInit {
 
     });
 
-    // search
     this.searchControl.valueChanges
       .pipe(debounceTime(300))
       .subscribe(value => {
@@ -86,6 +84,7 @@ export class Product implements OnInit {
   loadProducts(id: number): void {
 
     this.productService.GetGetProductsByCategoryId(id).subscribe({
+
       next: (res: IProduct[]) => {
 
         const sortedProducts = res.sort((a,b)=> b.rate - a.rate);
@@ -93,8 +92,18 @@ export class Product implements OnInit {
         this.products.set(sortedProducts);
         this.filteredProducts.set(sortedProducts);
 
+        this.toastr.success("Products loaded successfully");
+
       },
-      error: (err) => console.error(err)
+
+      error: (err) => {
+
+        console.error(err);
+
+        this.toastr.error("Failed to load products");
+
+      }
+
     });
 
   }
@@ -125,7 +134,21 @@ export class Product implements OnInit {
       items: items
     }
 
-    this.cartService.createOrUpdateBasket(basket).subscribe();
+    this.cartService.createOrUpdateBasket(basket).subscribe({
+
+      next: () => {
+
+        this.toastr.success(`${product.name} added to cart 🛒`);
+
+      },
+
+      error: () => {
+
+        this.toastr.error("Failed to add product");
+
+      }
+
+    });
 
   }
 

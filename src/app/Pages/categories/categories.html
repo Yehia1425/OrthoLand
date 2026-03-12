@@ -1,4 +1,4 @@
-<section class="py-20 bg-cyan-100 mt-20">
+<section class="py-20  mt-20">
 
 <div class="max-w-7xl mx-auto grid gap-8 px-6 md:grid-cols-2 lg:grid-cols-3">
 
@@ -9,6 +9,21 @@ class="bg-white p-10 rounded-2xl text-center shadow-md hover:-translate-y-2 hove
 [routerLink]="['/products', pro.id]"
 [queryParams]="{video: pro.videoUrl}"
 >
+
+<!-- Category Image -->
+<div class="flex justify-center mb-4">
+
+<div class="w-24 h-24 rounded-full overflow-hidden border-4 border-cyan-200 shadow">
+
+<img
+[src]="getImageUrl(pro.logoUrl)"
+[alt]="pro.name"
+class="w-full h-full object-cover"
+/>
+
+</div>
+
+</div>
 
 <h3 class="text-xl font-semibold mb-2">
 {{ pro.name }}

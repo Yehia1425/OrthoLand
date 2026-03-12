@@ -24,6 +24,7 @@
   "private": true,
   "packageManager": "npm@10.9.4",
   "dependencies": {
+    "@angular/animations": "^21.1.0",
     "@angular/common": "^21.0.0",
     "@angular/compiler": "^21.0.0",
     "@angular/core": "^21.0.0",
@@ -35,6 +36,7 @@
     "@fortawesome/fontawesome-free": "^7.1.0",
     "express": "^5.1.0",
     "flowbite": "^4.0.1",
+    "ngx-spinner": "^21.0.0",
     "ngx-toastr": "^20.0.5",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0"
@@ -44,7 +46,7 @@
     "@angular/cli": "^21.0.5",
     "@angular/compiler-cli": "^21.0.0",
     "@types/express": "^5.0.1",
-    "@types/node": "^20.17.19",
+    "@types/node": "^20.19.37",
     "autoprefixer": "^10.4.23",
     "jsdom": "^27.1.0",
     "postcss": "^8.5.6",

@@ -1,6 +1,7 @@
-import { Component, computed, HostListener, inject, OnInit, Signal } from '@angular/core';
+import { Component, computed, HostListener, inject, OnInit, PLATFORM_ID, Signal } from '@angular/core';
 import { RouterLink } from "@angular/router";
 import { CartServices } from '../../Core/services/CartServcies/cart-services';
+import { isPlatformBrowser } from '@angular/common';
 
 @Component({
   selector: 'app-navbar',
@@ -11,7 +12,9 @@ import { CartServices } from '../../Core/services/CartServcies/cart-services';
 export class Navbar  {
 
 
+  platformId = inject(PLATFORM_ID);
 
+  isBrowser = isPlatformBrowser(this.platformId);
 
 
  isScrolling: boolean = false;

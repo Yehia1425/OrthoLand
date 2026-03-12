@@ -2,6 +2,7 @@ import { Component, inject } from '@angular/core';
 import { CartServices } from '../../Core/services/CartServcies/cart-services';
 import { IBasketItem } from '../../Shared/interfaces/ibasket-item';
 import { RouterLink } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-cart',
@@ -12,13 +13,14 @@ import { RouterLink } from '@angular/router';
 export class Cart {
 
   private cartService = inject(CartServices);
+  private toastr = inject(ToastrService);
 
   cartItems = this.cartService.cartItems;
   basketId = this.cartService.basketId;
 
   BaseUrl = "https://ourtholand.runasp.net";
 
-  // نفس طريقة product page
+
   getImageUrl(img: string | undefined | null) {
 
     if (!img) return '';
@@ -28,6 +30,7 @@ export class Cart {
     return `${this.BaseUrl}/api/Attachment/get-image/${cleanName}`;
   }
 
+
   updateBasket() {
 
     const basket = {
@@ -36,11 +39,16 @@ export class Cart {
     };
 
     this.cartService.createOrUpdateBasket(basket).subscribe({
-      next: (res) => console.log("Basket Updated", res),
-      error: (err) => console.log(err)
+      next: () => {
+        this.toastr.success("Cart updated successfully");
+      },
+      error: () => {
+        this.toastr.error("Error updating cart");
+      }
     });
 
   }
+
 
   removeItem(productId: number) {
 
@@ -49,7 +57,11 @@ export class Cart {
     );
 
     this.updateBasket();
+
+    this.toastr.warning("Product removed from cart");
+
   }
+
 
   increaseQuantity(item: IBasketItem) {
 
@@ -62,7 +74,11 @@ export class Cart {
     );
 
     this.updateBasket();
+
+    this.toastr.info("Quantity increased");
+
   }
+
 
   decreasequantity(item: IBasketItem) {
 
@@ -75,24 +91,78 @@ export class Cart {
     );
 
     this.updateBasket();
+
+    this.toastr.info("Quantity decreased");
+
   }
+
 
   clearCart() {
 
     this.cartService.deleteBasket(this.basketId).subscribe({
       next: () => {
-        console.log("Basket Deleted");
+
         this.cartItems.set([]);
+
+        this.toastr.success("Cart cleared successfully");
+
       },
-      error: (err) => console.log(err)
+      error: () => {
+
+        this.toastr.error("Error clearing cart");
+
+      }
     });
 
   }
 
+
+  getItemTotal(item: IBasketItem) {
+
+    let total = item.price * item.quantity;
+
+    if (item.buyQuantity && item.getQuantity) {
+
+      const group = item.buyQuantity + item.getQuantity;
+
+      const offerCount = Math.floor(item.quantity / group);
+
+      const paidQuantity =
+        (offerCount * item.buyQuantity) +
+        (item.quantity % group);
+
+      total = paidQuantity * item.price;
+
+    }
+
+    return total;
+
+  }
+
+
   getTotalPrice() {
 
-    return this.cartItems()
-      .reduce((total, item) => total + (item.price * item.quantity), 0);
+    return this.cartItems().reduce((total, item) => {
+
+      let itemTotal = item.price * item.quantity;
+
+      if (item.buyQuantity && item.getQuantity) {
+
+        const group = item.buyQuantity + item.getQuantity;
+
+        const offerCount = Math.floor(item.quantity / group);
+
+        const paidQuantity =
+          (offerCount * item.buyQuantity) +
+          (item.quantity % group);
+
+        itemTotal = paidQuantity * item.price;
+
+      }
+
+      return total + itemTotal;
+
+    }, 0);
 
   }
 
