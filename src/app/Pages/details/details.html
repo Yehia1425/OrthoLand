@@ -57,6 +57,33 @@ class="w-full h-full object-cover"
 {{product.price}} EGP
 </div>
 
+<!-- Product Specifications -->
+
+<div class="flex flex-col gap-2 text-gray-700">
+
+@if(product.type){
+<div class="flex gap-2">
+<span class="font-semibold text-[#2D465E]">Type:</span>
+<span>{{product.type}}</span>
+</div>
+}
+
+@if(product.size){
+<div class="flex gap-2">
+<span class="font-semibold text-[#2D465E]">Size:</span>
+<span>{{product.size}}</span>
+</div>
+}
+
+@if(product.color){
+<div class="flex gap-2">
+<span class="font-semibold text-[#2D465E]">Color:</span>
+<span>{{product.color}}</span>
+</div>
+}
+
+</div>
+
 <!-- Quantity -->
 
 <div class="flex items-center gap-5">
