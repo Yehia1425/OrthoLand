@@ -9,7 +9,7 @@ export interface IOrder {
   address: string;
   notes: string;
   paymentWay: number;
-
+  transferredAmount:number;
   items: IOrderItem[];
 
 }

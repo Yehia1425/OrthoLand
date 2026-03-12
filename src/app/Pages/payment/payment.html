@@ -1,0 +1,127 @@
+<div class="grid md:grid-cols-2 gap-6 mb-8 mt-32">
+
+<!-- Instapay -->
+<div class="bg-white shadow-lg rounded-xl p-6 border text-center">
+
+<img
+src="/Images/20231126094028!انستاباي.png"
+alt="Instapay"
+class="w-32 mx-auto mb-3"
+/>
+
+<p class="text-lg font-semibold">
+01067926468
+</p>
+
+<p class="text-sm text-gray-500 mt-2">
+قم بالتحويل إلى هذا الرقم عبر إنستاباي
+</p>
+
+<p class="text-red-500 text-sm mt-3 font-semibold">
+⚠ تحذير: يجب أن يكون رقم الهاتف الذي سيتم التحويل منه
+هو نفس الرقم الذي ستقوم بكتابته في نموذج الدفع بالأسفل.
+</p>
+
+</div>
+
+
+<!-- Vodafone Cash -->
+<div class="bg-white shadow-lg rounded-xl p-6 border text-center">
+
+<img
+src="/Images/17641431582256202503300411131113.jpg"
+alt="Vodafone Cash"
+class="w-32 mx-auto mb-3"
+/>
+
+<p class="text-lg font-semibold">
+01067926468
+</p>
+
+<p class="text-sm text-gray-500 mt-2">
+قم بالتحويل إلى هذا الرقم عبر فودافون كاش
+</p>
+
+<p class="text-red-500 text-sm mt-3 font-semibold">
+⚠ تحذير: يجب أن يكون رقم الهاتف الذي سيتم التحويل منه
+هو نفس الرقم الذي ستقوم بكتابته في نموذج الدفع بالأسفل.
+</p>
+
+</div>
+
+</div>
+
+<div class="max-w-3xl mx-auto p-6 mt-28">
+
+<h2 class="text-2xl font-bold mb-6">
+Payment
+</h2>
+
+<form
+[formGroup]="paymentForm"
+(ngSubmit)="submitOrder()"
+class="space-y-6 bg-white p-6 rounded-xl shadow-md"
+>
+
+<div>
+<label class="block mb-2 text-sm font-medium">
+Phone Number
+</label>
+
+<input
+type="text"
+formControlName="phone"
+placeholder="01000000000"
+class="bg-gray-50 border border-gray-300 rounded-lg w-full p-2.5"
+/>
+</div>
+
+<div>
+<label class="block mb-2 text-sm font-medium">
+Amount Transferred
+</label>
+
+<input
+type="number"
+formControlName="amount"
+placeholder="Enter transferred amount"
+class="bg-gray-50 border border-gray-300 rounded-lg w-full p-2.5"
+/>
+</div>
+
+<div>
+<label class="block mb-2 text-sm font-medium">
+Payment Method
+</label>
+
+<select
+formControlName="paymentWay"
+class="bg-gray-50 border border-gray-300 rounded-lg w-full p-2.5"
+>
+
+<option value="">
+Select Payment Method
+</option>
+
+<option value="1">
+Instapay
+</option>
+
+<option value="2">
+Vodafone Cash
+</option>
+
+</select>
+
+</div>
+
+<button
+type="submit"
+class="w-full bg-green-600 text-white py-3 rounded-lg"
+>
+Confirm Order
+</button>
+
+</form>
+
+</div>

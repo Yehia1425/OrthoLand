@@ -1,41 +1,80 @@
 <!-- Navbar -->
-<header class="fixed top-0 inset-x-0 z-50 bg-gradient-to-r from-cyan-500 to-cyan-400 shadow-lg transition-all duration-300" [class.p-4]="!isScrolling">
-  <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
-    <img src="Images/Logo.png" class="h-14" alt="Logo" />
+<header
+class="fixed top-0 inset-x-0 z-50 bg-gradient-to-r from-cyan-500 to-cyan-400 shadow-lg">
 
+<div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+
+<!-- Logo -->
+<img src="Images/Logo.png" class="h-14" alt="Logo" />
+
+<!-- Desktop Menu -->
 <nav class="hidden md:flex items-center gap-8 text-white font-medium">
 
-  <a routerLink="/home" class="hover:text-cyan-100">
-    الرئيسية
-  </a>
+<a routerLink="/home" class="hover:text-cyan-100">
+الرئيسية
+</a>
 
-  <a routerLink="/categories" class="hover:text-cyan-100">
-    الاقسام
-  </a>
-  <a routerLink="/categories-offers" class="hover:text-cyan-100">
-    العروض
-  </a>
+<a routerLink="/categories" class="hover:text-cyan-100">
+الاقسام
+</a>
 
-  <a routerLink="/contact" class="hover:text-cyan-100">
-    تواصل معنا
-  </a>
+<a routerLink="/categories-offers" class="hover:text-cyan-100">
+العروض
+</a>
 
-  <a routerLink="/cart"
-     class="cart-link active flex items-center gap-2 relative">
+<a routerLink="/contact" class="hover:text-cyan-100">
+تواصل معنا
+</a>
 
-    <i class="fas fa-shopping-cart"></i>
+<a routerLink="/cart"
+class="flex items-center gap-2 relative">
 
-    <span class="cart-count">
-    </span>
+<i class="fas fa-shopping-cart"></i>
 
-  </a>
+</a>
 
 </nav>
 
+<!-- Mobile Button -->
+<button
+(click)="toggleMenu()"
+class="md:hidden text-white text-2xl">
 
+<i class="fas fa-bars"></i>
 
-    <button class="md:hidden text-white text-2xl">
-      <i class="fas fa-bars"></i>
-    </button>
-  </div>
+</button>
+
+</div>
+
+<!-- Mobile Menu -->
+
+@if(menuOpen){
+
+<div class="md:hidden bg-cyan-500 text-white px-6 pb-6 flex flex-col gap-4">
+
+<a routerLink="/home" (click)="toggleMenu()">
+الرئيسية
+</a>
+
+<a routerLink="/categories" (click)="toggleMenu()">
+الاقسام
+</a>
+
+<a routerLink="/categories-offers" (click)="toggleMenu()">
+العروض
+</a>
+
+<a routerLink="/contact" (click)="toggleMenu()">
+تواصل معنا
+</a>
+
+<a routerLink="/cart" (click)="toggleMenu()">
+<i class="fas fa-shopping-cart mr-2"></i>
+السلة
+</a>
+
+</div>
+
+}
+
 </header>

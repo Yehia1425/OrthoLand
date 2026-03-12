@@ -10,7 +10,11 @@ import { isPlatformBrowser } from '@angular/common';
   styleUrl: './navbar.css',
 })
 export class Navbar  {
+menuOpen = false;
 
+toggleMenu(){
+  this.menuOpen = !this.menuOpen;
+}
 
   platformId = inject(PLATFORM_ID);
 

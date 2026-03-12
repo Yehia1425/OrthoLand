@@ -43,14 +43,15 @@ type="video/mp4"
 <div class="bg-white rounded-xl shadow-sm hover:shadow-xl hover:-translate-y-1 transition duration-300 flex flex-col">
 
 <!-- Image -->
-<div class="h-48 bg-gray-100 rounded-t-xl overflow-hidden flex items-center justify-center">
+<!-- Image -->
+<div class="aspect-square bg-gray-100 rounded-t-xl overflow-hidden">
 
 @if (pro.picturesUrls && pro.picturesUrls.length) {
 
 <img
 [src]="getImageUrl(pro.picturesUrls[0])"
-class="w-full h-full object-cover"
 alt="product image"
+class="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
 />
 
 }
