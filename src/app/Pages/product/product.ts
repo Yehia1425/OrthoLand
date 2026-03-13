@@ -136,7 +136,7 @@ export class Product implements OnInit {
 
       next: () => {
 
-        this.toastr.success(`${product.name} added to cart 🛒`);
+        this.toastr.success(`${product.name} added to cart `);
 
       },
 

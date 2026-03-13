@@ -138,7 +138,7 @@ phone: new FormControl('',[
 
       next:()=>{
 
-        this.toastr.success("Order placed successfully 🎉");
+        this.toastr.success("Order placed successfully ");
 
         this.cartService.cartItems.set([]);
 
