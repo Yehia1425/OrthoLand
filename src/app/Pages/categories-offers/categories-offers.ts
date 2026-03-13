@@ -35,7 +35,7 @@ export class CategoriesOffers implements OnInit {
 
         this.categories.set(res);
 
-        this.toastr.success("Categories loaded successfully");
+
 
       },
 
@@ -43,7 +43,6 @@ export class CategoriesOffers implements OnInit {
 
         console.log(err);
 
-        this.toastr.error("Error loading categories");
 
       }
 
@@ -61,7 +60,6 @@ export class CategoriesOffers implements OnInit {
 
         this.products = res;
 
-        this.toastr.info("Products loaded");
 
       },
 
@@ -69,7 +67,6 @@ export class CategoriesOffers implements OnInit {
 
         console.log(err);
 
-        this.toastr.error("Error loading products");
 
       }
 

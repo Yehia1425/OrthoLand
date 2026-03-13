@@ -92,7 +92,6 @@ export class Product implements OnInit {
         this.products.set(sortedProducts);
         this.filteredProducts.set(sortedProducts);
 
-        this.toastr.success("Products loaded successfully");
 
       },
 
@@ -100,7 +99,6 @@ export class Product implements OnInit {
 
         console.error(err);
 
-        this.toastr.error("Failed to load products");
 
       }
 

@@ -52,7 +52,6 @@ export class Details implements OnInit {
 
           console.error(err);
 
-          this.toastr.error("Failed to load product");
 
         }
 

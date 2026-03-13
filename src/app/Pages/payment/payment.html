@@ -64,16 +64,33 @@ class="space-y-6 bg-white p-6 rounded-xl shadow-md"
 >
 
 <div>
-<label class="block mb-2 text-sm font-medium">
-Phone Number
-</label>
+  <label class="block mb-2 text-sm font-medium">
+    Phone Number
+  </label>
 
-<input
-type="text"
-formControlName="phone"
-placeholder="01000000000"
-class="bg-gray-50 border border-gray-300 rounded-lg w-full p-2.5"
-/>
+  <input
+    type="text"
+    formControlName="phone"
+    placeholder="01000000000"
+    class="bg-gray-50 border border-gray-300 rounded-lg w-full p-2.5"
+  />
+
+  @if(paymentForm.get('phone')?.touched && paymentForm.get('phone')?.invalid){
+    
+    <p class="text-red-500 text-sm mt-1">
+      
+      @if(paymentForm.get('phone')?.errors?.['required']){
+        Phone number is required
+      }
+
+      @if(paymentForm.get('phone')?.errors?.['pattern']){
+        Enter a valid Egyptian phone number
+      }
+
+    </p>
+
+  }
+
 </div>
 
 <div>

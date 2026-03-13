@@ -59,7 +59,6 @@ export class Offers implements OnInit {
 
               error: () => {
 
-                this.toastr.error("Failed to load product");
 
               }
 
@@ -67,13 +66,11 @@ export class Offers implements OnInit {
 
           });
 
-          this.toastr.success("Offers loaded successfully");
 
         },
 
         error: () => {
 
-          this.toastr.error("Failed to load offers");
 
         }
 

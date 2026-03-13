@@ -26,9 +26,10 @@ export class Payment implements OnInit {
 
   paymentForm = new FormGroup({
 
-    phone: new FormControl('',[
-      Validators.required
-    ]),
+phone: new FormControl('',[
+  Validators.required,
+  Validators.pattern(/^01[0125][0-9]{8}$/)
+]),
 
     amount: new FormControl('',[
       Validators.required

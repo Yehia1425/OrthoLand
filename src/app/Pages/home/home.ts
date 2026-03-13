@@ -35,7 +35,6 @@ export class Home implements OnInit {
 
         this.categories.set(res);
 
-        this.toastr.success("Categories loaded successfully");
 
       },
 
@@ -43,7 +42,6 @@ export class Home implements OnInit {
 
         console.log(err);
 
-        this.toastr.error("Failed to load categories");
 
       }
 
@@ -61,7 +59,6 @@ export class Home implements OnInit {
 
         this.products = res;
 
-        this.toastr.info("Products loaded");
 
       },
 
@@ -69,7 +66,6 @@ export class Home implements OnInit {
 
         console.log(err);
 
-        this.toastr.error("Failed to load products");
 
       }
 
