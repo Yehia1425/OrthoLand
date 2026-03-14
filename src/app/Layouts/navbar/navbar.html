@@ -1,9 +1,10 @@
 <!-- Navbar -->
 <header
-class="fixed top-0 inset-x-0 z-50 transition-all duration-300"
+class="fixed top-0 inset-x-0 z-50 transition-all duration-300 "
 [class.bg-transparent]="!isScrolling"
 [class.bg-cyan-400]="isScrolling"
 [class.shadow-lg]="isScrolling"
+[class.p-4]="isScrolling"
 >
 
 <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
@@ -47,4 +48,39 @@ class="md:hidden text-white text-2xl"
 </button>
 
 </div>
+
+<!-- Mobile Menu -->
+@if(menuOpen){
+
+<div
+class="md:hidden text-white px-6 pb-6 flex flex-col gap-4 transition-all duration-300"
+[class.bg-transparent]="!isScrolling"
+[class.bg-cyan-400]="isScrolling"
+>
+
+<a routerLink="/home" (click)="toggleMenu()">
+الرئيسية
+</a>
+
+<a routerLink="/categories" (click)="toggleMenu()">
+الاقسام
+</a>
+
+<a routerLink="/categories-offers" (click)="toggleMenu()">
+العروض
+</a>
+
+<a routerLink="/contact" (click)="toggleMenu()">
+تواصل معنا
+</a>
+
+<a routerLink="/cart" (click)="toggleMenu()">
+<i class="fas fa-shopping-cart mr-2"></i>
+السلة
+</a>
+
+</div>
+
+}
+
 </header>

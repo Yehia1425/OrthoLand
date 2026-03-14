@@ -1,12 +1,12 @@
 <!-- Hero Video -->
-<section class="relative w-full h-screen overflow-hidden">
+<section class="relative w-full h-[70vh] sm:h-[80vh] md:h-screen overflow-hidden">
 
   <!-- Video -->
   <video
     autoplay
     muted
     loop
-    playsinline
+    playsinline 
     class="absolute top-0 left-0 w-full h-full object-cover"
   >
     <source
@@ -20,19 +20,19 @@
 
   <!-- Content -->
   <div class="relative z-10 flex items-center h-full">
-    <div class="max-w-6xl px-12 text-white">
+    <div class="max-w-6xl px-6 md:px-12 text-white">
 
-      <h1 class="text-6xl font-extrabold mb-6">
+      <h1 class="text-3xl sm:text-4xl md:text-6xl font-extrabold mb-4 md:mb-6">
         Ortho Land
       </h1>
 
-      <p class="text-xl mb-8 max-w-xl text-gray-200">
+      <p class="text-base sm:text-lg md:text-xl mb-6 md:mb-8 max-w-xl text-gray-200">
         كل ما تحتاجه لرعاية تقويم الأسنان في مكان واحد
       </p>
 
       <a
         routerLink="/categories"
-        class="inline-flex items-center gap-3 px-10 py-4 rounded-full
+        class="inline-flex items-center gap-3 px-6 md:px-10 py-3 md:py-4 rounded-full
                bg-cyan-500 hover:bg-cyan-400
                text-white font-semibold shadow-lg transition"
       >
