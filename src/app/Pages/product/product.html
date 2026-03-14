@@ -11,8 +11,9 @@
     muted
     loop
     playsinline
-    controls
-    class="absolute top-0 left-0 w-full h-full object-cover"
+    disablePictureInPicture
+    controlsList="nodownload nofullscreen noremoteplayback"
+    class="absolute top-0 left-0 w-full h-full object-cover pointer-events-none"
   >
     <source
       [src]="getVideoUrl(videoUrl())"
