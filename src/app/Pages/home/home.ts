@@ -1,4 +1,4 @@
-import { Component, inject, OnInit, signal, WritableSignal } from '@angular/core';
+import { Component, ElementRef, inject, OnInit, signal, ViewChild, WritableSignal } from '@angular/core';
 import { RouterLink } from "@angular/router";
 import { ProductServicesandCategories } from '../../Core/services/ProductServicesandCategories/product-servicesand-categories';
 import { ICategories } from '../../Shared/interfaces/icategories';
@@ -80,5 +80,13 @@ export class Home implements OnInit {
 
     return `${this.BaseUrl}/api/Attachment/get-image/${cleanName}`;
   }
+
+  @ViewChild('heroVideo') video!: ElementRef;
+
+ngAfterViewInit() {
+  const v = this.video.nativeElement;
+  v.muted = true;
+  v.play().catch(() => {});
+}
 
 }
