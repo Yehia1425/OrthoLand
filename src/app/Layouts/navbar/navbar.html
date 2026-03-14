@@ -1,6 +1,10 @@
 <!-- Navbar -->
 <header
-class="fixed top-0 inset-x-0 z-50 bg-gradient-to-r from-cyan-500 to-cyan-400 shadow-lg">
+class="fixed top-0 inset-x-0 z-50 transition-all duration-300"
+[class.bg-transparent]="!isScrolling"
+[class.bg-cyan-400]="isScrolling"
+[class.shadow-lg]="isScrolling"
+>
 
 <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
 
@@ -8,7 +12,9 @@ class="fixed top-0 inset-x-0 z-50 bg-gradient-to-r from-cyan-500 to-cyan-400 sha
 <img src="Images/Logo.png" class="h-14" alt="Logo" />
 
 <!-- Desktop Menu -->
-<nav class="hidden md:flex items-center gap-8 text-white font-medium">
+<nav
+class="hidden md:flex items-center gap-8 font-medium text-white"
+>
 
 <a routerLink="/home" class="hover:text-cyan-100">
 الرئيسية
@@ -26,11 +32,8 @@ class="fixed top-0 inset-x-0 z-50 bg-gradient-to-r from-cyan-500 to-cyan-400 sha
 تواصل معنا
 </a>
 
-<a routerLink="/cart"
-class="flex items-center gap-2 relative">
-
+<a routerLink="/cart" class="flex items-center gap-2 relative">
 <i class="fas fa-shopping-cart"></i>
-
 </a>
 
 </nav>
@@ -38,43 +41,10 @@ class="flex items-center gap-2 relative">
 <!-- Mobile Button -->
 <button
 (click)="toggleMenu()"
-class="md:hidden text-white text-2xl">
-
+class="md:hidden text-white text-2xl"
+>
 <i class="fas fa-bars"></i>
-
 </button>
 
 </div>
-
-<!-- Mobile Menu -->
-
-@if(menuOpen){
-
-<div class="md:hidden bg-cyan-500 text-white px-6 pb-6 flex flex-col gap-4">
-
-<a routerLink="/home" (click)="toggleMenu()">
-الرئيسية
-</a>
-
-<a routerLink="/categories" (click)="toggleMenu()">
-الاقسام
-</a>
-
-<a routerLink="/categories-offers" (click)="toggleMenu()">
-العروض
-</a>
-
-<a routerLink="/contact" (click)="toggleMenu()">
-تواصل معنا
-</a>
-
-<a routerLink="/cart" (click)="toggleMenu()">
-<i class="fas fa-shopping-cart mr-2"></i>
-السلة
-</a>
-
-</div>
-
-}
-
 </header>

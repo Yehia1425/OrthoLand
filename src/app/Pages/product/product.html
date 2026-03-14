@@ -1,5 +1,30 @@
 <section class="py-20 bg-cyan-100 mt-20">
 
+    
+@if(videoUrl()){
+
+<section class="relative w-full h-screen overflow-hidden">
+
+  <!-- Video -->
+  <video
+    autoplay
+    muted
+    loop
+    playsinline
+    controls
+    class="absolute top-0 left-0 w-full h-full object-cover"
+  >
+    <source
+      [src]="getVideoUrl(videoUrl())"
+      type="video/mp4"
+    />
+  </video>
+
+</section>
+
+}
+
+
 <div class="max-w-7xl mx-auto px-4 mt-2">
 
 <input
@@ -12,27 +37,6 @@ class="w-full p-3 border rounded-lg mb-8"
 </div>
 
 <!-- VIDEO -->
-
-@if(videoUrl()){
-
-<section class="py-10 bg-white mb-10">
-
-<div class="w-full h-[60vh] overflow-hidden border-y-4 border-cyan-500 shadow-2xl">
-
-<video controls muted loop class="w-full h-full object-cover">
-
-<source
-[src]="getVideoUrl(videoUrl())"
-type="video/mp4"
-/>
-
-</video>
-
-</div>
-
-</section>
-
-}
 
 <!-- PRODUCTS -->
 
