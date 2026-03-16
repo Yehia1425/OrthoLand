@@ -1,11 +1,13 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { ProductServicesandCategories } from '../../Core/services/ProductServicesandCategories/product-servicesand-categories';
-import { IProduct } from '../../Shared/interfaces/iproduct';
 import { CartServices } from '../../Core/services/CartServcies/cart-services';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { debounceTime } from 'rxjs';
 import { ToastrService } from 'ngx-toastr';
+import { OffersServices } from '../../Core/services/OffersServices/offers-services';
+import { IProduct } from '../../Shared/interfaces/iproduct';
+import { IOffer } from '../../Shared/interfaces/ioffer';
 
 @Component({
   selector: 'app-product',
@@ -20,6 +22,7 @@ export class Product implements OnInit {
   private cartService = inject(CartServices);
   private route = inject(ActivatedRoute);
   private toastr = inject(ToastrService);
+  private offerService = inject(OffersServices);
 
   BaseUrl = "https://ourtholand.runasp.net";
 
@@ -47,7 +50,6 @@ export class Product implements OnInit {
     this.route.paramMap.subscribe(params => {
 
       const id = params.get('id');
-
       if (!id) return;
 
       this.loadProducts(Number(id));
@@ -92,37 +94,79 @@ export class Product implements OnInit {
         this.products.set(sortedProducts);
         this.filteredProducts.set(sortedProducts);
 
+        sortedProducts.forEach(p => {
+
+          this.offerService.GetOfferByProductId(p.id).subscribe({
+
+            next:(offer:IOffer)=>{
+
+              if(!offer) return;
+
+              const today = new Date();
+              const start = new Date(offer.startDate);
+              const end = new Date(offer.endDate);
+
+              if(today >= start && today <= end){
+
+                p.offer = offer;
+
+              }
+
+            },
+
+            error:()=>{}
+
+          });
+
+        });
 
       },
 
       error: (err) => {
-
         console.error(err);
-
-
       }
 
     });
 
   }
 
-  addToCart(product: IProduct){
+  addToCart(product: any){
 
-    let items = [...this.cartService.cartItems()];
+    const items = [...this.cartService.cartItems()];
 
     const existingItem = items.find(x => x.id === product.id);
 
+    let quantityToAdd = 1;
+
+    let buyQuantity;
+    let getQuantity;
+
+    if(product.offer){
+
+      buyQuantity = product.offer.buyQuantity;
+      getQuantity = product.offer.getQuantity;
+
+      quantityToAdd = buyQuantity + getQuantity;
+
+    }
+
     if(existingItem){
-      existingItem.quantity++;
+
+      existingItem.quantity += quantityToAdd;
+
     }else{
+
       items.push({
         id: product.id,
         name: product.name,
         description: product.description,
         price: product.price,
-        quantity: 1,
-        pictureUrl: product.picturesUrls[0]
+        quantity: quantityToAdd,
+        pictureUrl: product.picturesUrls?.[0] ?? '',
+        buyQuantity: buyQuantity,
+        getQuantity: getQuantity
       });
+
     }
 
     this.cartService.cartItems.set(items);
@@ -130,20 +174,16 @@ export class Product implements OnInit {
     const basket = {
       id: this.cartService.basketId,
       items: items
-    }
+    };
 
     this.cartService.createOrUpdateBasket(basket).subscribe({
 
       next: () => {
-
-        this.toastr.success(`${product.name} added to cart `);
-
+        this.toastr.success(`${product.name} added to cart`);
       },
 
       error: () => {
-
         this.toastr.error("Failed to add product");
-
       }
 
     });

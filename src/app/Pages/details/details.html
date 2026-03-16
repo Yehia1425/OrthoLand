@@ -9,6 +9,7 @@
 <div class="w-full">
 
 <!-- Main Image -->
+
 <div class="w-full h-[300px] sm:h-[400px] md:h-[500px] bg-gray-100 rounded-xl overflow-hidden">
 
 <img
@@ -56,6 +57,18 @@ class="w-full h-full object-cover"
 <div class="text-xl md:text-2xl font-bold text-[#2D465E]">
 {{product.price}} EGP
 </div>
+
+<!-- OFFER -->
+
+@if(offer()){
+
+<div class="bg-red-500 text-white px-4 py-2 rounded w-fit">
+
+🔥 Buy {{ offer()?.buyQuantity }} Get {{ offer()?.getQuantity }}
+
+</div>
+
+}
 
 <!-- Product Specifications -->
 

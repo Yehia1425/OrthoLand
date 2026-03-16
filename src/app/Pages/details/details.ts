@@ -4,6 +4,8 @@ import { ProductServicesandCategories } from '../../Core/services/ProductService
 import { IProductSpec } from '../../Shared/interfaces/iproduct-spec';
 import { CartServices } from '../../Core/services/CartServcies/cart-services';
 import { ToastrService } from 'ngx-toastr';
+import { OffersServices } from '../../Core/services/OffersServices/offers-services';
+import { IOffer } from '../../Shared/interfaces/ioffer';
 
 @Component({
   selector: 'app-details',
@@ -16,10 +18,13 @@ export class Details implements OnInit {
   private productService = inject(ProductServicesandCategories);
   private cart = inject(CartServices);
   private toastr = inject(ToastrService);
+  private offerService = inject(OffersServices);
 
   BaseUrl = "https://ourtholand.runasp.net";
 
   product = signal<IProductSpec | null>(null);
+  offer = signal<IOffer | null>(null);
+
   quantity = signal(1);
 
   selectedImage = signal<string | null>(null);
@@ -36,7 +41,10 @@ export class Details implements OnInit {
 
     if (id) {
 
-      this.productService.GetProductById(Number(id)).subscribe({
+      const productId = Number(id);
+
+      // GET PRODUCT
+      this.productService.GetProductById(productId).subscribe({
 
         next: (res: IProductSpec) => {
 
@@ -49,11 +57,29 @@ export class Details implements OnInit {
         },
 
         error: (err) => {
-
           console.error(err);
-
-
         }
+
+      });
+
+      // GET OFFER
+      this.offerService.GetOfferByProductId(productId).subscribe({
+
+        next:(offer:IOffer)=>{
+
+          if(!offer) return;
+
+          const today = new Date();
+          const start = new Date(offer.startDate);
+          const end = new Date(offer.endDate);
+
+          if(today >= start && today <= end){
+            this.offer.set(offer);
+          }
+
+        },
+
+        error:()=>{}
 
       });
 
@@ -79,9 +105,23 @@ export class Details implements OnInit {
 
     const existingItem = items.find(x => x.id === product.id);
 
+    let quantityToAdd = this.quantity();
+
+    let buyQuantity;
+    let getQuantity;
+
+    if(this.offer()){
+
+      buyQuantity = this.offer()!.buyQuantity;
+      getQuantity = this.offer()!.getQuantity;
+
+      quantityToAdd = buyQuantity + getQuantity;
+
+    }
+
     if(existingItem){
 
-      existingItem.quantity += this.quantity();
+      existingItem.quantity += quantityToAdd;
 
     }else{
 
@@ -90,8 +130,10 @@ export class Details implements OnInit {
         name: product.name,
         description: product.description,
         price: product.price,
-        quantity: this.quantity(),
-        pictureUrl: product.picturesUrls[0]
+        quantity: quantityToAdd,
+        pictureUrl: product.picturesUrls[0],
+        buyQuantity: buyQuantity,
+        getQuantity: getQuantity
       });
 
     }
@@ -105,17 +147,13 @@ export class Details implements OnInit {
 
     this.cart.createOrUpdateBasket(basket).subscribe({
 
-      next:(res)=>{
-
-        console.log("Added To Cart",res);
+      next:()=>{
 
         this.toastr.success("Product added to cart 🛒");
 
       },
 
-      error:(err)=>{
-
-        console.log(err);
+      error:()=>{
 
         this.toastr.error("Failed to add product");
 

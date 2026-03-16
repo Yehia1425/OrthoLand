@@ -1,5 +1,4 @@
-
-
+import { IOffer } from "./ioffer";
 
 export interface IProduct {
   id: number;
@@ -7,11 +6,15 @@ export interface IProduct {
   description: string;
   price: number;
   picturesUrls: string[];
-  size: string ;
-  color: string ;
+  size: string;
+  color: string;
   rate: number;
-  type: string ;
+  type: string;
   stock: number;
   categoryId: number;
   soldNumber: number;
+
+  // ADD
+  hasActiveOffer?: boolean;
+  offer?: IOffer;
 }

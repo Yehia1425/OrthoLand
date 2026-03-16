@@ -1,31 +1,31 @@
 <section class="py-20 bg-cyan-100 mt-20">
 
-    
 @if(videoUrl()){
 
 <section class="relative w-full overflow-hidden aspect-video">
 
-  <!-- Video -->
-  <video
-    autoplay
-    muted
-    loop
-    playsinline
-    disablePictureInPicture
-    controlsList="nodownload nofullscreen noremoteplayback"
-    class="absolute top-0 left-0 w-full h-full object-cover pointer-events-none"
-  >
-    <source
-      [src]="getVideoUrl(videoUrl())"
-      type="video/mp4"
-    />
-  </video>
+<video
+autoplay
+muted
+loop
+playsinline
+disablePictureInPicture
+controlsList="nodownload nofullscreen noremoteplayback"
+class="absolute top-0 left-0 w-full h-full object-cover pointer-events-none"
+>
+
+<source
+[src]="getVideoUrl(videoUrl())"
+type="video/mp4"
+/>
+
+</video>
 
 </section>
 
 }
 
-<div class="max-w-7xl mx-auto px-4 mt-2">
+<div class="max-w-7xl mx-auto px-4 mt-6">
 
 <input
 type="text"
@@ -36,18 +36,22 @@ class="w-full p-3 border rounded-lg mb-8"
 
 </div>
 
-<!-- VIDEO -->
-
-<!-- PRODUCTS -->
-
 <div class="max-w-7xl mx-auto grid gap-6 px-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
 
 @for (pro of filteredProducts(); track pro.id) {
 
-<div class="bg-white rounded-xl shadow-sm hover:shadow-xl hover:-translate-y-1 transition duration-300 flex flex-col">
+<div class="bg-white rounded-xl shadow-sm hover:shadow-xl hover:-translate-y-1 transition duration-300 flex flex-col relative">
 
-<!-- Image -->
-<!-- Image -->
+@if(pro.offer){
+
+<div class="absolute top-3 left-3 bg-red-500 text-white text-xs px-3 py-1 rounded-full shadow z-10">
+
+🔥 Buy {{ pro.offer.buyQuantity }} Get {{ pro.offer.getQuantity }}
+
+</div>
+
+}
+
 <div class="aspect-square bg-gray-100 rounded-t-xl overflow-hidden">
 
 @if (pro.picturesUrls && pro.picturesUrls.length) {
@@ -55,14 +59,13 @@ class="w-full p-3 border rounded-lg mb-8"
 <img
 [src]="getImageUrl(pro.picturesUrls[0])"
 alt="product image"
-class="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
+class="w-full h-full object-cover"
 />
 
 }
 
 </div>
 
-<!-- Content -->
 <div class="p-4 flex flex-col flex-grow">
 
 <p class="text-gray-400 text-sm truncate mb-1">
@@ -91,7 +94,6 @@ Sold: {{ pro.soldNumber }}
 
 </div>
 
-<!-- Bottom -->
 <div class="flex items-center justify-between mt-auto">
 
 <span class="font-bold text-cyan-600 text-lg">
